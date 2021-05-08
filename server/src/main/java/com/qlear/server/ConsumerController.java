@@ -76,5 +76,41 @@ public class ConsumerController {
         return res;
     }
 
+    @PutMapping("/consumers/{id}")
+    public ResponseEntity<String> update(@PathVariable("id") String id, @RequestBody Consumer updatedConsumer) {
 
+        String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
+                ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
+                ASTRA_DB_KEYSPACE + "/collections/consumer/" + id;
+
+        String newConsumerJsonInString = new Gson().toJson(updatedConsumer);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("X-Cassandra-Token", ASTRA_DB_APPLICATION_TOKEN);
+        HttpEntity<String> entity = new HttpEntity<String>(newConsumerJsonInString, headers);
+        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class);
+
+        //returns id of updatedConsumer (same id)
+        return res;
+    }
+
+    @DeleteMapping("/consumers/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
+
+        String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
+                ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
+                ASTRA_DB_KEYSPACE + "/collections/consumer/" + id;
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("X-Cassandra-Token", ASTRA_DB_APPLICATION_TOKEN);
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.DELETE, entity, String.class);
+
+        //returns nothing
+        return res;
+    }
 }
