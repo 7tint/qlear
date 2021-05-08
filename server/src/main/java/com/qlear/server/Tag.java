@@ -1,4 +1,4 @@
-package com.tago.restservice;
+package com.qlear.server;
 
 public class Tag {
     private final String companyId;
