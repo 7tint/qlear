@@ -1,4 +1,4 @@
-package com.tago.restservice;
+package com.qlear.restservice;
 
 import java.util.Arrays;
 
@@ -21,6 +21,39 @@ public class ConsumerController {
     private String ASTRA_DB_APPLICATION_TOKEN;
 
     // collection-id is consumer (for astra)
+    @GetMapping("/consumers")
+    public ResponseEntity<String> all() {
+        // Create uri with env variables.
+        String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
+                ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
+                ASTRA_DB_KEYSPACE + "/collections/consumer?page-size=20";
 
+        // Call The DataStax Astra API
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.set("X-Cassandra-Token", ASTRA_DB_APPLICATION_TOKEN);
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
 
+        return res;
+    }
+
+    @GetMapping("/consumers/{id}")
+    public ResponseEntity<String> tags(@PathVariable("id") String id) {
+        // Create uri with env variables.
+        String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
+                ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
+                ASTRA_DB_KEYSPACE + "/collections/consumer/id";
+
+        // Call The DataStax Astra API
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.set("X-Cassandra-Token", ASTRA_DB_APPLICATION_TOKEN);
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class); // I needed a placeholder here ff
+
+        return res;
+    }
 }
