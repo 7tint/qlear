@@ -1,0 +1,171 @@
+.is-flex-direction-column-touch {
+  flex-direction: column !important;
+}
+
+.brand {
+  font-size: 1.125rem !important;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.circle {
+  border-radius: 100%;
+}
+
+.shadow {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12),
+}
+
+.py-6-desktop {
+  margin-bottom: 2rem;
+}
+
+.card {
+  box-shadow: 0 0px 2px rgba(0,0,0,0.12),
+              0 2px 4px rgba(0,0,0,0.12),
+              0 4px 8px rgba(0,0,0,0.12);
+}
+
+.custom-filter {
+  background-color: #E2E2E2;
+  opacity: 0.5;
+  font-size: 0.75rem;
+  padding: 1rem;
+  border: none;
+}
+
+.custom-button {
+  background-color: #0E3B40;
+  padding: 1rem;
+  font-size: 1rem;
+  color: white;
+  font-weight: 600;
+  border: none;
+}
+
+.custom-button-beige {
+  background-color: transparent;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #0E3B40;
+  font-weight: 600;
+  border: 2px solid #0E3B40;
+}
+
+.custom-button:hover, .custom-button:focus {
+  color: #E2E2E2;
+  border: none;
+}
+
+.custom-button-beige:hover, .custom-button-beige:focus {
+  color: #0E3B40;
+  border: 2px solid #0E3B40;
+}
+
+.px-custom-touch {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.is-fixed-side {
+  margin-top: 50px;
+}
+
+.has-background-theme-grey {
+  background-color: #F3F3F3;
+}
+
+.radio-custom {
+  width: 24px;
+  height: 24px;
+  border: 5px solid #D4D4D4;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.subtitle {
+  font-family: "GothamPro", sans-serif;
+  color: #0E3B40;
+  font-size: 1.125rem;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+  opacity: 80%;
+}
+
+.input, .textarea {
+  font-family: "GothamPro", sans-serif;
+  font-weight: 300;
+}
+
+.field {
+  font-family: "GothamPro", sans-serif;
+  color: #0E3B40;
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+  opacity: 60%;
+  margin-left: 0.1rem;
+}
+
+.header {
+  font-family: "GothamPro", sans-serif;
+  color: #0E3B40;
+  font-size: 1rem;
+  margin-left: 0.1rem;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+  opacity: 70%;
+}
+
+.border-radius-8 {
+  border-radius: 0.5rem;
+}
+
+
+hr {
+  background-color: #0E3B40;
+  height: 1px;
+  opacity: 20%;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .is-flex-direction-column-touch {
+    flex-direction: row !important;
+  }
+
+  .sidebar {
+    flex: 0 0 190px;
+    min-height: calc(100vh - 50px);
+  }
+
+  .mt-auto {
+    margin-top: auto;
+  }
+
+  .py-6-desktop {
+    margin-bottom: 3rem;
+  }
+
+  .px-custom-touch {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .is-fixed-side {
+    position: fixed;
+    width: 190px;
+  }
+
+  .main {
+    margin-left: 190px;
+    margin-top: 50px;
+  }
+}
