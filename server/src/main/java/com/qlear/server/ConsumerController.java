@@ -1,4 +1,4 @@
-package com.qlear.restservice;
+package com.qlear.server;
 
 import java.util.Arrays;
 
