@@ -1,7 +1,13 @@
 package com.qlear.server;
 
+import java.util.Arrays;
+
+import com.google.gson.Gson;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class TagController {
@@ -14,14 +20,24 @@ public class TagController {
     @Value("${ASTRA_DB_APPLICATION_TOKEN}")
     private String ASTRA_DB_APPLICATION_TOKEN;
 
+    // collection-id is tag (for astra)
+
     @GetMapping("/tags")
-    public String all() {
+    public ResponseEntity<String> all() {
         // Create uri with env variables.
         String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
                 ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
-                ASTRA_DB_KEYSPACE + "/collections/tags?page-size=20";
+                ASTRA_DB_KEYSPACE + "/collections/tag?page-size=20";
 
-        return uri;
+        // Call The DataStax Astra API
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.set("X-Cassandra-Token", ASTRA_DB_APPLICATION_TOKEN);
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+
+        return res;
     }
 
 }
