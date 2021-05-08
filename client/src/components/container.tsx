@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom';
 import logo_dark from '../assets/img/full-logo-qlear-green.png';
 import logo_light from '../assets/img/full-logo-qlear-beige.png';
 import '../assets/css/navbar.scss';
+import ProductIndex from './stores/product-index';
+import ProductNew from './stores/product-new';
+import ProductView from './users/product-view';
 import Home from './home';
 
 const Navbar = withRouter(props => {
@@ -97,16 +100,15 @@ class Container extends React.Component {
     }
   }
 
-  // <Route exact path="/sell/dashboard" component={ProductIndex}/>
-  // <Route exact path="/sell/dashboard/new" component={ProductNew}/>
-  // <Route exact path="/buy/dashboard/:id" component={ProductView}/>
-  
   render() {
     return(
       <Router>
         <Navbar/>
         <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/sell/dashboard" component={ProductIndex}/>
+          <Route exact path="/sell/dashboard/new" component={ProductNew}/>
+          <Route exact path="/buy/dashboard/:id" component={ProductView}/>
           <Route path="*"> <h1 className="title is-size-1 mt-6 pt-6">404 not found.</h1> </Route>
         </Switch>
       </Router>
