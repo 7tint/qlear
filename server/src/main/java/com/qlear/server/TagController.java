@@ -40,4 +40,23 @@ public class TagController {
         return res;
     }
 
+    @PostMapping("/tags")
+    public ResponseEntity<String> create(@RequestBody Tag newTago) {
+        String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
+                ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
+                ASTRA_DB_KEYSPACE + "/collections/tag";
+
+        String newTagoJsonInString = new Gson().toJson(newTago);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("X-Cassandra-Token", ASTRA_DB_APPLICATION_TOKEN);
+        HttpEntity<String> entity = new HttpEntity<String>(newTagoJsonInString, headers);
+        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);
+
+        //returns id of newTag
+        return res;
+    }
+
 }
