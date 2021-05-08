@@ -1,0 +1,64 @@
+@charset "utf-8";
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+@import "../node_modules/bulma/sass/utilities/functions";
+@import "../node_modules/bulma/sass/utilities/derived-variables";
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+@import url('https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
+
+$theme-green-1: #0E3B40;
+$theme-green-2: #008263;
+$theme-green-3: #33EB9C;
+$theme-beige: #F3F0EA;
+$theme-light: #F5F5F5;
+$white: #FFFFFF;
+
+$theme-green-1-invert: findColorInvert($theme-green-1);
+$theme-green-2-invert: findColorInvert($theme-green-2);
+$theme-green-3-invert: findColorInvert($theme-green-3);
+$theme-beige-invert: findColorInvert($theme-beige);
+$theme-light-invert: findColorInvert($theme-light);
+
+$addColors: (
+  "theme-green-1":($theme-green-1, $theme-green-1-invert),
+  "theme-green-2": ($theme-green-2, $theme-green-2-invert),
+  "theme-green-3": ($theme-green-3, $theme-green-3-invert),
+  "theme-beige": ($theme-beige, $theme-beige-invert),
+  "theme-light": ($theme-light, $theme-light-invert)
+);
+
+$colors: map-merge($colors, $addColors);
+
+@import "../node_modules/bulma";
+
+.title {
+  font-family: 'Krona One', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  font-family: 'GothamPro', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// body {
+//   margin: 0;
+//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+//     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+//     sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+// }
+//
+// code {
+//   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+//     monospace;
+// }
