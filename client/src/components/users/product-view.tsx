@@ -50,8 +50,8 @@ class ProductView extends React.Component<ProductProps, ProductState> {
               <div className="title is-size-4 has-text-theme-green-1">The Organic Cotton Box-Cut Pocket Tee</div>
               <div className="collection pt-3 pb-4">THE RENEW COLLECTION</div>
               <hr/>
-              <div className="is-size-6 has-text-theme-green-1 has-text-weight-light opacity-60">Ivory White</div>
-              <div className="is-flex w-100 mt-2 mb-5 pb-3">
+              <div className="is-size-6 is-text-centered-touch has-text-theme-green-1 has-text-weight-light opacity-60">Ivory White</div>
+              <div className="is-flex is-justify-content-center-touch w-100 mt-2 mb-5 pb-3">
                 <label className="color-radio active mr-4"></label>
                 <label className="color-radio mr-4"></label>
                 <label className="color-radio mr-4"></label>

@@ -64,7 +64,7 @@ class ProductIndex extends React.Component {
             <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
             <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
           </div>
-          <div className="is-flex justify-content-start mx-2 mb-6">
+          <div className="is-flex is-justify-content-center-touch mx-2 mb-6">
             <button className="button custom-button py-2 mx-2">
               <span className="mt-1 mx-3">SHOW ALL TAGS</span>
             </button>

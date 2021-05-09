@@ -80,8 +80,24 @@
   background-color: #F3F3F3;
 }
 
+.is-justify-content-center-touch {
+  justify-content: center;
+}
+
+.is-text-centered-touch {
+  text-align: center;
+}
+
 @media (min-width: 1024px) {
   .container-custom {
     width: 70%;
+  }
+
+  .is-justify-content-center-touch {
+    justify-content: flex-start;
+  }
+
+  .is-text-centered-touch {
+    text-align: left;
   }
 }
