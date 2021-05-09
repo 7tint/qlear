@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import '../../assets/css/product.scss';
 
 interface ProductProps {
@@ -6,6 +7,22 @@ interface ProductProps {
 
 interface ProductState {
   isModalOpen: boolean;
+  qleartag: Qleartag;
+}
+
+interface Qleartag {
+  name: string;
+  series: string;
+  unitPrice: number;
+  salePrice: number;
+  description: string;
+  colourways: string[][];
+  sizeChart: number[][];
+  media: string[];
+  stories: string[][];
+  materials: string;
+  instructions: string;
+  itemFeatures: string[];
 }
 
 class ProductView extends React.Component<ProductProps, ProductState> {
@@ -13,10 +30,33 @@ class ProductView extends React.Component<ProductProps, ProductState> {
     super(props);
 
     this.state = {
-      isModalOpen: true
+      isModalOpen: true,
+      qleartag: {
+        name: "",
+        series: "",
+        unitPrice: 0,
+        salePrice: 0,
+        description: "",
+        colourways: [[]],
+        sizeChart: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
+        media: [],
+        stories: [[]],
+        materials: "",
+        instructions: "",
+        itemFeatures: []
+      }
     }
 
     this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags/2bc18ec4-f2de-4972-b4a3-c0fe9d05f142`)
+      .then(res => {
+        const qleartag = res.data.data;
+        this.setState({ qleartag });
+        console.log(this.state.qleartag.sizeChart[1][0]);
+      })
   }
 
   toggleModal(e: React.MouseEvent) {
@@ -35,27 +75,28 @@ class ProductView extends React.Component<ProductProps, ProductState> {
       sizeChart.classList.remove("is-active");
     }
   }
-
+  
   render() {
+    console.log(this.state.qleartag.sizeChart[1][0]);
     return(
       <div className="navbar-offset pt-6">
         <div className="container mt-6 container-custom">
           <div className="columns mt-6 mb-4 w-100 mx-0 is-flex-wrap-wrap">
             <div className="column is-6-desktop is-full-mobile">
               <div className="product-image-container mx-5">
-                <img className="product-image" src="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" alt="Product preview"/>
+                <img className="product-image" src={this.state.qleartag.colourways[0][2]} alt="Product preview"/>
               </div>
             </div>
             <div className="column is-6-desktop is-full-mobile has-text-left px-5">
-              <div className="title is-size-4 has-text-theme-green-1">The Organic Cotton Box-Cut Pocket Tee</div>
-              <div className="collection pt-3 pb-4">THE RENEW COLLECTION</div>
+              <div className="title is-size-4 has-text-theme-green-1">{this.state.qleartag.name}</div>
+              <div className="collection pt-3 pb-4">{this.state.qleartag.series}</div>
               <hr/>
-              <div className="is-size-6 is-text-centered-touch has-text-theme-green-1 has-text-weight-light opacity-60">Ivory White</div>
+              <div className="is-size-6 is-text-centered-touch has-text-theme-green-1 has-text-weight-light opacity-60">{this.state.qleartag.colourways[0][0]}</div>
               <div className="is-flex is-justify-content-center-touch w-100 mt-2 mb-5 pb-3">
-                <label className="color-radio active mr-4"></label>
-                <label className="color-radio mr-4"></label>
-                <label className="color-radio mr-4"></label>
-                <label className="color-radio mr-4"></label>
+                <label className="color-radio active mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
+                <label className="color-radio mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
+                <label className="color-radio mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
+                <label className="color-radio mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
               </div>
               <hr/>
               <div className="is-flex is-flex-direction-row is-flex-direction-column-touch w-100 mt-2 mb-5 is-justify-content-space-between is-align-items-center">
@@ -87,27 +128,27 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                           </tr>
                           <tr>
                             <td className="pt-2 px-4 has-background-grey-lighter has-text-centered"><div className="pt-2 is-size-6">CHEST</div></td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[0][0]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[0][1]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[0][2]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[0][3]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[0][4]}</td>
                           </tr>
                           <tr>
                             <td className="pt-2 px-4 has-background-grey-lighter has-text-centered"><div className="pt-2 is-size-6">WAIST</div></td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[1][0]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[1][1]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[1][2]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[1][3]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[1][4]}</td>
                           </tr>
                           <tr>
                             <td className="pt-2 px-4 has-background-grey-lighter has-text-centered"><div className="pt-2 is-size-6">SLEEVE</div></td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
-                            <td className="pt-3 has-text-centered">4</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[2][0]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[2][1]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[2][2]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[2][3]}</td>
+                            <td className="pt-3 has-text-centered">{this.state.qleartag.sizeChart[2][4]}</td>
                           </tr>
                         </tbody>
                       </table>
