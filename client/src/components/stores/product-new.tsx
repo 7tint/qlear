@@ -167,11 +167,18 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     }
 
     console.log(postTag);
-    axios.post(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags`, { postTag })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+    // axios.post(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags`, { newTago: postTag })
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //   })
+    fetch(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags`, {
+      method: 'POST',
+      headers: {'Content-type':'aplication/json'},
+      body: JSON.stringify(postTag)
+    }).then(r=>r.json()).then(res => {
+      console.log(res.data);
+    })
   }
 
   handleInput(e: React.FormEvent<HTMLInputElement|HTMLTextAreaElement>, element: string) {
