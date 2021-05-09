@@ -1,0 +1,24 @@
+hr {
+  height: 1px;
+  opacity: 50%;
+}
+
+.opacity-60 {
+  opacity: 60%;
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.company {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    width: 70%;
+  }
+}
