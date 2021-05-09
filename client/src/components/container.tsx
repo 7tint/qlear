@@ -7,6 +7,7 @@ import '../assets/css/navbar.scss';
 import ProductIndex from './stores/product-index';
 import ProductNew from './stores/product-new';
 import ProductView from './users/product-view';
+import Dashboard from './users/dashboard';
 import Home from './home';
 
 const Navbar = withRouter(props => {
@@ -26,7 +27,7 @@ const Navbar = withRouter(props => {
         <div className="navbar-menu has-text-left-touch has-background-theme-beige is-align-items-center" id="navMenu">
           <div className="navbar-end">
             <Link to="/sell/dashboard" className="navbar-item link mt-1 has-text-weight-semibold has-text-theme-green-1">Sell</Link>
-            <Link to="/buy/dashboard/1234" className="navbar-item link mt-1 has-text-weight-semibold has-text-theme-green-1">Shop</Link>
+            <Link to="/buy/dashboard/" className="navbar-item link mt-1 has-text-weight-semibold has-text-theme-green-1">Shop</Link>
             <Link to="/login" className="navbar-item link mt-1 has-text-weight-semibold has-text-theme-green-1">Login</Link>
             <div className="navbar-item link">
               <div className="control">
@@ -108,6 +109,7 @@ class Container extends React.Component {
           <Route exact path="/" component={Home}/>
           <Route exact path="/sell/dashboard" component={ProductIndex}/>
           <Route exact path="/sell/dashboard/new" component={ProductNew}/>
+          <Route exact path="/buy/dashboard/" component={Dashboard}/>
           <Route exact path="/buy/dashboard/:id" component={ProductView}/>
           <Route path="*"> <h1 className="title is-size-1 mt-6 pt-6">404 not found.</h1> </Route>
         </Switch>
