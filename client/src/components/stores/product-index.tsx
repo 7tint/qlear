@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../assets/css/store-dashboard.scss';
 import Sidebar from './sidebar';
@@ -6,8 +7,52 @@ import StatCard from './stat-card';
 import ProductCard from './product-card';
 import sampleQR from '../../assets/img/sample-QR.png';
 
-class ProductIndex extends React.Component {
+interface ProductsProps {
+}
+
+interface Qleartag {
+  id: string;
+  name: string;
+  series: string;
+  unitPrice: number;
+  salePrice: number;
+  description: string;
+  colourways: string[][];
+  sizeChart: number[][];
+  media: string[];
+  stories: string[][];
+  materials: string;
+  instructions: string;
+  itemFeatures: string[];
+}
+
+interface ProductsState {
+  qleartags: Qleartag[];
+}
+
+class ProductIndex extends React.Component<ProductsProps, ProductsState> {
+  constructor(props: ProductsProps) {
+    super(props);
+
+    this.state = {
+      qleartags: []
+    }
+  }
+
+  componentDidMount() {
+    axios.get("https://api.qlear.info/tags")
+    .then(res => {
+      const qleartags = res.data.data;
+      const arr = Object.entries(qleartags).map((e) => ( { [e[0]]: e[1] } ));
+      console.log(arr);
+      this.setState({qleartags: arr});
+      console.log(this.state.qleartags);
+    });
+  }
+
   render() {
+    const qleartags = this.state.qleartags;
+
     return(
       <div className="is-flex is-flex-direction-row is-flex-direction-column-touch">
         <Sidebar/>
