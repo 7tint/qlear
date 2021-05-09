@@ -7,6 +7,7 @@ interface ProductProps {
 
 interface ProductState {
   isModalOpen: boolean;
+  activeColorIndex: number;
   qleartag: Qleartag;
 }
 
@@ -31,16 +32,17 @@ class ProductView extends React.Component<ProductProps, ProductState> {
 
     this.state = {
       isModalOpen: true,
+      activeColorIndex: 0,
       qleartag: {
         name: "",
         series: "",
         unitPrice: 0,
         salePrice: 0,
         description: "",
-        colourways: [[]],
+        colourways: [["", "", ""]],
         sizeChart: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
-        media: ["", "", ""],
-        stories: [[]],
+        media: [],
+        stories: [["", ""]],
         materials: "",
         instructions: "",
         itemFeatures: []
@@ -48,14 +50,17 @@ class ProductView extends React.Component<ProductProps, ProductState> {
     }
 
     this.toggleModal = this.toggleModal.bind(this);
+    this.changeColors = this.changeColors.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags/2bc18ec4-f2de-4972-b4a3-c0fe9d05f142`)
-      .then(res => {
-        const qleartag = res.data.data;
-        this.setState({ qleartag });
-      })
+    const id = window.location.href.split("dashboard/")[1];
+    axios.get(`http://api.qlear.info/tags/${id}`)
+    .then(res => {
+      const qleartag = res.data.data;
+      this.setState({ qleartag });
+      console.log(this.state.qleartag);
+    });
   }
 
   toggleModal(e: React.MouseEvent) {
@@ -74,28 +79,41 @@ class ProductView extends React.Component<ProductProps, ProductState> {
       sizeChart.classList.remove("is-active");
     }
   }
-  
+
+  changeColors(e: React.MouseEvent) {
+    e.preventDefault();
+    const target = e.target as HTMLInputElement;
+    console.log(target.id);
+    this.setState({activeColorIndex: parseInt(target.id, 10)});
+  }
+
   render() {
-    console.log(this.state.qleartag.sizeChart[1][0]);
     return(
       <div className="navbar-offset pt-6">
         <div className="container mt-6 container-custom">
           <div className="columns mt-6 mb-4 w-100 mx-0 is-flex-wrap-wrap">
             <div className="column is-6-desktop is-full-mobile">
               <div className="product-image-container mx-5">
-                <img className="product-image" src={this.state.qleartag.colourways[0][2]} alt="Product preview"/>
+                <img className="product-image" src={this.state.qleartag.colourways[this.state.activeColorIndex][2]} alt="Product preview"/>
               </div>
             </div>
             <div className="column is-6-desktop is-full-mobile has-text-left px-5">
               <div className="title is-size-4 has-text-theme-green-1">{this.state.qleartag.name}</div>
               <div className="collection pt-3 pb-4">{this.state.qleartag.series}</div>
               <hr/>
-              <div className="is-size-6 is-text-centered-touch has-text-theme-green-1 has-text-weight-light opacity-60">{this.state.qleartag.colourways[0][0]}</div>
+              <div className="is-size-6 is-text-centered-touch has-text-theme-green-1 has-text-weight-light opacity-60">{this.state.qleartag.colourways[this.state.activeColorIndex][0]}</div>
               <div className="is-flex is-justify-content-center-touch w-100 mt-2 mb-5 pb-3">
-                <label className="color-radio active mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
-                <label className="color-radio mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
-                <label className="color-radio mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
-                <label className="color-radio mr-4" style={{backgroundColor: this.state.qleartag.colourways[0][1]}}></label>
+              {this.state.qleartag.colourways.map((colour, i) => {
+                if (i === this.state.activeColorIndex) {
+                  return (
+                    <label key={i} id={i.toString()} className="color-radio active mr-4" style={{backgroundColor: colour[1]}} onClick={this.changeColors}></label>
+                  );
+                } else {
+                  return(
+                    <label key={i} id={i.toString()} className="color-radio mr-4" style={{backgroundColor: colour[1]}} onClick={this.changeColors}></label>
+                  );
+                }
+              })}
               </div>
               <hr/>
               <div className="is-flex is-flex-direction-row is-flex-direction-column-touch w-100 mt-2 mb-5 is-justify-content-space-between is-align-items-center">
@@ -178,7 +196,7 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                 <div className="px-2 feature-box p-5">
                   <div className="is-size-5 mb-3">{this.state.qleartag.itemFeatures[1]}</div>
                   <div className="is-size-7 has-text-grey has-text-weight-light">
-                  {this.state.qleartag.itemFeatures[2]}
+                    {this.state.qleartag.itemFeatures[2]}
                   </div>
                 </div>
               </div>
@@ -186,7 +204,7 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                 <div className="px-2 feature-box p-5">
                   <div className="is-size-5 mb-3">{this.state.qleartag.itemFeatures[3]}</div>
                   <div className="is-size-7 has-text-grey has-text-weight-light">
-                  {this.state.qleartag.itemFeatures[4]}
+                    {this.state.qleartag.itemFeatures[4]}
                   </div>
                 </div>
               </div>
@@ -194,43 +212,35 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                 <div className="px-2 feature-box p-5">
                   <div className="is-size-5 mb-3">{this.state.qleartag.itemFeatures[5]}</div>
                   <div className="is-size-7 has-text-grey has-text-weight-light">
-                  {this.state.qleartag.itemFeatures[6]}
+                    {this.state.qleartag.itemFeatures[6]}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-100">
-            <img className="my-6" src="https://cdn.discordapp.com/attachments/836015586613395516/840778004870332446/Screen_Shot_2021-05-08_at_7.31.34_PM.png" alt="Additional media"/>
-          </div>
+          {this.state.qleartag.media.map(function(el, i) {
+            return(
+              <div key={i} className="w-100">
+                <img className="my-6" src={el} alt="Additional media"/>
+              </div>
+            );
+          })}
           <div className="has-text-left mx-5 mb-6">
             <div className="description-title pt-3 pb-4">EXPLORE OUR COMMITMENTS</div>
             <hr/>
             <div className="columns my-5 mx-0 w-100 is-flex-wrap-wrap">
-              <div className="column is-one-third-desktop is-full-touch">
-                <div className="is-flex is-flex-direction-column">
-                  <div className="square-img-container">
-                    <img className="product-img" src="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" alt="Product commitment"/>
+            {this.state.qleartag.stories.map(function(story, i) {
+              return(
+                <div key={i} className="column is-one-third-desktop is-full-touch">
+                  <div className="is-flex is-flex-direction-column">
+                    <div className="square-img-container">
+                      <img className="product-img" src={story[i][0]} alt="Product commitment"/>
+                    </div>
                   </div>
+                  <div className="has-text-theme-green-1 is-size-6 mt-4">{story[i][1]}</div>
                 </div>
-                <div className="has-text-theme-green-1 is-size-6 mt-4">{this.state.qleartag.media[0]}</div>
-              </div>
-              <div className="column is-one-third-desktop is-full-touch">
-                <div className="is-flex is-flex-direction-column">
-                  <div className="square-img-container">
-                    <img className="product-img" src="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" alt="Product commitment"/>
-                  </div>
-                </div>
-                <div className="has-text-theme-green-1 is-size-6 mt-4">{this.state.qleartag.media[1]}</div>
-              </div>
-              <div className="column is-one-third-desktop is-full-touch">
-                <div className="is-flex is-flex-direction-column">
-                  <div className="square-img-container">
-                    <img className="product-img" src="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" alt="Product commitment"/>
-                  </div>
-                </div>
-                <div className="has-text-theme-green-1 is-size-6 mt-4">{this.state.qleartag.media[2]}</div>
-              </div>
+              );
+            })}
             </div>
           </div>
         </div>

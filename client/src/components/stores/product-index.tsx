@@ -5,7 +5,6 @@ import '../../assets/css/store-dashboard.scss';
 import Sidebar from './sidebar';
 import StatCard from './stat-card';
 import ProductCard from './product-card';
-import sampleQR from '../../assets/img/sample-QR.png';
 
 interface ProductsProps {
 }
@@ -30,6 +29,7 @@ interface Qleartag {
 }
 
 interface ProductsState {
+  totalScans: number;
   qleartags: Qleartag[];
 }
 
@@ -38,6 +38,7 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
     super(props);
 
     this.state = {
+      totalScans: 0,
       qleartags: []
     }
   }
@@ -49,10 +50,13 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
       const arr = Object.entries(qleartags).map((e) => ( { [e[0]]: e[1] } ));
       const qleartagsNew : any[] = [];
 
+      let scanCount = 0;
+
       arr.forEach(function(el, i) {
         let key = Object.keys(arr[i]);
         let obj : any;
         obj = el[key.toString()];
+
         let newTag = {
           id: key,
           name: obj.name,
@@ -69,35 +73,25 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
           itemFeatures: obj.itemFeatures,
           saves: obj.saves,
           views: obj.views,
-          qr: "https://api.qrserver.com/v1/create-qr-code/?data=" + "qlear.info/buy/dashboard/" + key + "&size=1000x1000"
+          qr: `https://api.qrserver.com/v1/create-qr-code/?data=qlear.info/buy/dashboard/${key}&size=1000x1000`
         }
         qleartagsNew.push(newTag);
+        scanCount += newTag.views;
       });
       this.setState({qleartags: qleartagsNew});
+      this.setState({totalScans: scanCount});
     });
   }
 
-  // getScans() {
-  //   let count = 0;
-  //   this.state.qleartags.forEach(function(tag, i) {
-  //     count += tag.views;
-  //   });
-  //   console.log(count);
-  //
-  //   return count.toString();
-  // }
-
   render() {
-    const qleartags = this.state.qleartags;
-
     return(
       <div className="is-flex is-flex-direction-row is-flex-direction-column-touch">
         <Sidebar/>
         <div className="main is-flex is-flex-direction-column w-100 pt-6 px-custom-touch">
           <div className="columns w-100 mx-0 is-mobile is-flex-wrap-wrap">
             <StatCard number={this.state.qleartags.length.toString()} text="QLEARTAGS CREATED" icon="fa-tags"/>
-            <StatCard number="1234" text="QLEARTAGS SCANNED" icon="fa-qrcode"/>
-            <StatCard number="-44%" text="REDUCED PACKAGING" icon="fa-leaf"/>
+            <StatCard number={this.state.totalScans.toString()} text="QLEARTAGS SCANNED" icon="fa-qrcode"/>
+            <StatCard number="-21%" text="REDUCED PACKAGING" icon="fa-leaf"/>
           </div>
           <div className="is-flex is-flex-direction-column is-align-items-start mt-5 mx-2">
             <div className="is-flex is-flex-direction-column-touch is-justify-content-space-between w-100">
