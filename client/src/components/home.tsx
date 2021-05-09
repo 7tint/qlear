@@ -1,5 +1,6 @@
 import React from 'react';
 import '../assets/css/home.scss';
+import landing from '../assets/img/landing.png';
 
 interface Props {
 }
@@ -34,7 +35,7 @@ class Home extends React.Component<Props, State> {
   render() {
     return (
       <div className="home">
-        Home
+        <img className="my-0 py-0" src={landing} alt="Landing page"/>
       </div>
     );
   }
