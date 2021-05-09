@@ -14,7 +14,7 @@ interface Qleartag {
   unitPrice: number;
   salePrice: number;
   description: string;
-  colorways: string[];
+  colourways: string[];
   sizeChart: number[][];
   media: string[];
   stories: string[][];
@@ -65,7 +65,7 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
         unitPrice: 0,
         salePrice: 0,
         description: "",
-        colorways: [],
+        colourways: [],
         sizeChart: [[]],
         media: [],
         stories: [[]],
@@ -99,14 +99,14 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // get colorways
-    const colorways = ["", "", ""];
+    // get colourways
+    const colourways = ["", "", ""];
     const colorNameElement = document.getElementById('colorName') as HTMLInputElement;
     const colorPickerElement = document.getElementById('colorPicker') as HTMLInputElement;
     const colorImageUrlElement = document.getElementById('colorImageUrl') as HTMLInputElement;
-    colorways[0] = colorNameElement.value;
-    colorways[1] = colorPickerElement.value;
-    colorways[2] = colorImageUrlElement.value;
+    colourways[0] = colorNameElement.value;
+    colourways[1] = colorPickerElement.value;
+    colourways[2] = colorImageUrlElement.value;
 
     // get sizeChart
     const sizeChart = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
@@ -152,12 +152,11 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
 
     const { qleartag } = this.state;
     qleartag['sizeChart'] = sizeChart;
-    qleartag['colorways'] = colorways;
+    qleartag['colourways'] = colourways;
     qleartag['media'] = media;
     qleartag['stories'] = stories;
     qleartag['itemFeatures'] = itemFeatures;
     this.setState({ qleartag });
-    //console.log(qleartag);
 
     const postTag = {
       ...this.state.qleartag,
@@ -167,18 +166,11 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     }
 
     console.log(postTag);
-    // axios.post(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags`, { newTago: postTag })
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //   })
-    fetch(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags`, {
-      method: 'POST',
-      headers: {'Content-type':'aplication/json'},
-      body: JSON.stringify(postTag)
-    }).then(r=>r.json()).then(res => {
-      console.log(res.data);
-    })
+
+    axios.post('https://api.qlear.info/tags', postTag)
+    .then(res => {
+      console.log(res);
+    });
   }
 
   handleInput(e: React.FormEvent<HTMLInputElement|HTMLTextAreaElement>, element: string) {
@@ -189,13 +181,12 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
         [element]: newVal
       }
     }));
-    //console.log(this.state.qleartag);
   }
 
   render() {
-    const colorways = [];
+    const colourways = [];
     for (let i = 0; i < this.state.colorsCount; i++) {
-      colorways.push(Colorway(this.deleteColor, i));
+      colourways.push(Colorway(this.deleteColor, i));
     }
 
     return(
@@ -263,7 +254,7 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
                   </div>
                   <div className="header py-2">COLOURWAYS</div>
                   <hr/>
-                  {colorways}
+                  {colourways}
                   <div className="is-flex is-align-items-center mb-6">
                     <button className="button border-radius-8 is-light px-3 mx-3" onClick={this.addColor}>
                       <i className="fa fa-plus has-text-grey-light"></i>
