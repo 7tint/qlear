@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 import '../../assets/css/product.scss';
 
@@ -51,11 +52,11 @@ class ProductView extends React.Component<ProductProps, ProductState> {
   }
 
   componentDidMount() {
-    axios.get(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags/2bc18ec4-f2de-4972-b4a3-c0fe9d05f142`)
+    const id = window.location.href.split("dashboard/")[1];
+    axios.get(`http://api.qlear.info/tags/${id}`)
       .then(res => {
         const qleartag = res.data.data;
         this.setState({ qleartag });
-        console.log(this.state.qleartag.sizeChart[1][0]);
       })
   }
 
@@ -75,9 +76,8 @@ class ProductView extends React.Component<ProductProps, ProductState> {
       sizeChart.classList.remove("is-active");
     }
   }
-  
+
   render() {
-    console.log(this.state.qleartag.sizeChart[1][0]);
     return(
       <div className="navbar-offset pt-6">
         <div className="container mt-6 container-custom">
