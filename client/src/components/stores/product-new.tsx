@@ -39,8 +39,8 @@ function Colorway(clickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void
         <input id="colorPicker" className="input is-normal p-1" defaultValue="#83B7A1" type="color"/>
       </div>
       <div className="column is-4-desktop is-8-touch">
-        <div id="colorImageUrl" className="field">IMAGE URL</div>
-        <input className="input is-normal" type="text" placeholder="url.image.com"/>
+        <div className="field">IMAGE URL</div>
+        <input id="colorImageUrl" className="input is-normal" type="text" placeholder="url.image.com"/>
       </div>
       <div className="column is-2-desktop is-4-touch">
         <div className="field">DELETE</div>
@@ -119,7 +119,7 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
       const td = tr.querySelectorAll('td');
       for (let col = 1; col < 6; col++) {
         if (td[col].querySelector('input')!.value) {
-          console.log(td[col].querySelector('input')!.value);
+          //console.log(td[col].querySelector('input')!.value);
           sizeChart[row-1][col-1] = Number(td[col].querySelector('input')!.value);
         }
       }
