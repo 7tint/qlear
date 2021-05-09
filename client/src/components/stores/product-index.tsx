@@ -5,7 +5,6 @@ import '../../assets/css/store-dashboard.scss';
 import Sidebar from './sidebar';
 import StatCard from './stat-card';
 import ProductCard from './product-card';
-import sampleQR from '../../assets/img/sample-QR.png';
 
 interface ProductsProps {
 }
@@ -57,6 +56,7 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
         let key = Object.keys(arr[i]);
         let obj : any;
         obj = el[key.toString()];
+
         let newTag = {
           id: key,
           name: obj.name,
@@ -73,7 +73,7 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
           itemFeatures: obj.itemFeatures,
           saves: obj.saves,
           views: obj.views,
-          qr: "https://api.qrserver.com/v1/create-qr-code/?data=" + "qlear.info/buy/dashboard/" + key + "&size=1000x1000"
+          qr: `https://api.qrserver.com/v1/create-qr-code/?data=qlear.info/buy/dashboard/${key}&size=1000x1000`
         }
         qleartagsNew.push(newTag);
         scanCount += newTag.views;
@@ -83,19 +83,7 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
     });
   }
 
-  // getScans() {
-  //   let count = 0;
-  //   this.state.qleartags.forEach(function(tag, i) {
-  //     count += tag.views;
-  //   });
-  //   console.log(count);
-  //
-  //   return count.toString();
-  // }
-
   render() {
-    const qleartags = this.state.qleartags;
-
     return(
       <div className="is-flex is-flex-direction-row is-flex-direction-column-touch">
         <Sidebar/>
