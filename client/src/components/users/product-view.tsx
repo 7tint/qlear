@@ -39,7 +39,7 @@ class ProductView extends React.Component<ProductProps, ProductState> {
         description: "",
         colourways: [[]],
         sizeChart: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
-        media: [],
+        media: ["", "", ""],
         stories: [[]],
         materials: "",
         instructions: "",
@@ -55,7 +55,6 @@ class ProductView extends React.Component<ProductProps, ProductState> {
       .then(res => {
         const qleartag = res.data.data;
         this.setState({ qleartag });
-        console.log(this.state.qleartag.sizeChart[1][0]);
       })
   }
 
@@ -159,10 +158,11 @@ class ProductView extends React.Component<ProductProps, ProductState> {
               </div>
               <div className="description-title pt-3 pb-4">DESCRIPTION</div>
               <div className="description is-size-7 has-text-grey has-text-weight-light">
-                It's an icon. The Organic Cotton Box-Cut Pocket Tee is made from certified organic cotton, and features a classic crew neck and pocket detail. This roomy cut is cropped to sit right above the hip for a truly timeless shape.
+                {this.state.qleartag.description}
                 <br/><br/>
-                This T-shirt is certified organic from seed to shirt. The Global Organic Textile Standard (GOTS) certification takes over a year to account for every step of production—from the processing of certified organic fiber into yarn, to the dyehouses, mills, factories, and printers.
+                {this.state.qleartag.materials}
                 <br/><br/>
+                {this.state.qleartag.instructions}
               </div>
             </div>
           </div>
@@ -170,31 +170,31 @@ class ProductView extends React.Component<ProductProps, ProductState> {
             <div className="description-title pt-3 pb-4">FEATURES</div>
             <hr/>
             <div className="is-size-7 has-text-grey has-text-weight-light">
-              In order to hit our sustainability goals—and hold ourselves accountable to our customers—we have publicly committed to two broad initiatives: eliminating all virgin plastic from our supply chain and moving all of our cotton production to organic. Large-scale change rarely happens quickly, but we are making swift and promising progress toward our goals.
+              {this.state.qleartag.itemFeatures[0]}
               <br/>
             </div>
             <div className="columns my-5 mx-0 w-100 is-flex-wrap-wrap">
               <div className="column is-one-third-desktop is-full-touch">
                 <div className="px-2 feature-box p-5">
-                  <div className="is-size-5 mb-3">Certified Organic Cotton</div>
+                  <div className="is-size-5 mb-3">{this.state.qleartag.itemFeatures[1]}</div>
                   <div className="is-size-7 has-text-grey has-text-weight-light">
-                    Worldwide, cotton farming uses more toxic pesticides per acre than any other crop. These chemicals are harming our planet—stripping the land of nutrients, contaminating our water, and endangering the people who grow it. That’s why we’re moving all our cotton to certified organic by 2023.
+                  {this.state.qleartag.itemFeatures[2]}
                   </div>
                 </div>
               </div>
               <div className="column is-one-third-desktop is-full-touch">
                 <div className="px-2 feature-box p-5">
-                  <div className="is-size-5 mb-3">Certified Organic Cotton</div>
+                  <div className="is-size-5 mb-3">{this.state.qleartag.itemFeatures[3]}</div>
                   <div className="is-size-7 has-text-grey has-text-weight-light">
-                    Worldwide, cotton farming uses more toxic pesticides per acre than any other crop. These chemicals are harming our planet—stripping the land of nutrients, contaminating our water, and endangering the people who grow it. That’s why we’re moving all our cotton to certified organic by 2023.
+                  {this.state.qleartag.itemFeatures[4]}
                   </div>
                 </div>
               </div>
               <div className="column is-one-third-desktop is-full-touch">
                 <div className="px-2 feature-box p-5">
-                  <div className="is-size-5 mb-3">Certified Organic Cotton</div>
+                  <div className="is-size-5 mb-3">{this.state.qleartag.itemFeatures[5]}</div>
                   <div className="is-size-7 has-text-grey has-text-weight-light">
-                    Worldwide, cotton farming uses more toxic pesticides per acre than any other crop. These chemicals are harming our planet—stripping the land of nutrients, contaminating our water, and endangering the people who grow it. That’s why we’re moving all our cotton to certified organic by 2023.
+                  {this.state.qleartag.itemFeatures[6]}
                   </div>
                 </div>
               </div>
@@ -213,7 +213,7 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                     <img className="product-img" src="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" alt="Product commitment"/>
                   </div>
                 </div>
-                <div className="has-text-theme-green-1 is-size-6 mt-4">Lever Shirt (Shenzhen) Ltd</div>
+                <div className="has-text-theme-green-1 is-size-6 mt-4">{this.state.qleartag.media[0]}</div>
               </div>
               <div className="column is-one-third-desktop is-full-touch">
                 <div className="is-flex is-flex-direction-column">
@@ -221,7 +221,7 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                     <img className="product-img" src="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" alt="Product commitment"/>
                   </div>
                 </div>
-                <div className="has-text-theme-green-1 is-size-6 mt-4">Lever Shirt (Shenzhen) Ltd</div>
+                <div className="has-text-theme-green-1 is-size-6 mt-4">{this.state.qleartag.media[1]}</div>
               </div>
               <div className="column is-one-third-desktop is-full-touch">
                 <div className="is-flex is-flex-direction-column">
@@ -229,7 +229,7 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                     <img className="product-img" src="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" alt="Product commitment"/>
                   </div>
                 </div>
-                <div className="has-text-theme-green-1 is-size-6 mt-4">Lever Shirt (Shenzhen) Ltd</div>
+                <div className="has-text-theme-green-1 is-size-6 mt-4">{this.state.qleartag.media[2]}</div>
               </div>
             </div>
           </div>
