@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../assets/css/store-dashboard.scss';
 import Sidebar from './sidebar';
@@ -156,7 +157,21 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     qleartag['stories'] = stories;
     qleartag['itemFeatures'] = itemFeatures;
     this.setState({ qleartag });
-    console.log(qleartag);
+    //console.log(qleartag);
+
+    const postTag = {
+      ...this.state.qleartag,
+      companyId: "a516ef1b-4f86-4c92-b1d3-2377768b7faf",
+      views: 0,
+      saves: 0
+    }
+
+    console.log(postTag);
+    axios.post(`http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags`, { postTag })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
   }
 
   handleInput(e: React.FormEvent<HTMLInputElement|HTMLTextAreaElement>, element: string) {
