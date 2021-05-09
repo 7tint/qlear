@@ -11,7 +11,7 @@ interface ProductsProps {
 }
 
 interface Qleartag {
-  id: string;
+  id: string,
   name: string;
   series: string;
   unitPrice: number;
@@ -24,6 +24,9 @@ interface Qleartag {
   materials: string;
   instructions: string;
   itemFeatures: string[];
+  views: number;
+  saves: number;
+  qr: string;
 }
 
 interface ProductsState {
@@ -44,11 +47,45 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
     .then(res => {
       const qleartags = res.data.data;
       const arr = Object.entries(qleartags).map((e) => ( { [e[0]]: e[1] } ));
-      console.log(arr);
-      this.setState({qleartags: arr});
-      console.log(this.state.qleartags);
+      const qleartagsNew : any[] = [];
+
+      arr.forEach(function(el, i) {
+        let key = Object.keys(arr[i]);
+        let obj : any;
+        obj = el[key.toString()];
+        let newTag = {
+          id: key,
+          name: obj.name,
+          series: obj.series,
+          unitPrice: obj.unitPrice,
+          salePrice: obj.salePrice,
+          description: obj.description,
+          colourways: obj.colourways,
+          sizeChart: obj.sizeChart,
+          media: obj.media,
+          stories: obj.stories,
+          materials: obj.materials,
+          instructions: obj.instructions,
+          itemFeatures: obj.itemFeatures,
+          saves: obj.saves,
+          views: obj.views,
+          qr: "https://api.qrserver.com/v1/create-qr-code/?data=" + "qlear.info/buy/dashboard/" + key + "&size=1000x1000"
+        }
+        qleartagsNew.push(newTag);
+      });
+      this.setState({qleartags: qleartagsNew});
     });
   }
+
+  // getScans() {
+  //   let count = 0;
+  //   this.state.qleartags.forEach(function(tag, i) {
+  //     count += tag.views;
+  //   });
+  //   console.log(count);
+  //
+  //   return count.toString();
+  // }
 
   render() {
     const qleartags = this.state.qleartags;
@@ -58,8 +95,8 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
         <Sidebar/>
         <div className="main is-flex is-flex-direction-column w-100 pt-6 px-custom-touch">
           <div className="columns w-100 mx-0 is-mobile is-flex-wrap-wrap">
-            <StatCard number="11,890" text="QLEARTAGS CREATED" icon="fa-tags"/>
-            <StatCard number="5,390" text="QLEARTAGS SCANNED" icon="fa-qrcode"/>
+            <StatCard number={this.state.qleartags.length.toString()} text="QLEARTAGS CREATED" icon="fa-tags"/>
+            <StatCard number="1234" text="QLEARTAGS SCANNED" icon="fa-qrcode"/>
             <StatCard number="-44%" text="REDUCED PACKAGING" icon="fa-leaf"/>
           </div>
           <div className="is-flex is-flex-direction-column is-align-items-start mt-5 mx-2">
@@ -97,17 +134,11 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
             </div>
           </div>
           <div className="mt-2 columns w-100 mx-0 is-mobile is-flex-wrap-wrap">
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
-            <ProductCard name="Sexy Man Evan" image="https://cdn.discordapp.com/attachments/758449650403115059/840388729092440074/image0.jpg" price="$69.99" qr={sampleQR} scanned={522} wishlisted={121} purchased={86}/>
+          {this.state.qleartags.map(function(tag, i) {
+            return(
+              <ProductCard key={i} name={tag.name} image={tag.colourways[0][2]} price={tag.unitPrice.toString()} qr={tag.qr} scanned={tag.views} wishlisted={tag.saves} purchased={86}/>
+            );
+          })}
           </div>
           <div className="is-flex is-justify-content-center-touch mx-2 mb-6">
             <button className="button custom-button py-2 mx-2">
