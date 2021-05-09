@@ -42,7 +42,7 @@ public class TagController {
     }
 
     @GetMapping("/tags/{id}")
-    public ResponseEntity<String> tago(@PathVariable("id") String id) {
+    public ResponseEntity<String> tag(@PathVariable("id") String id) {
         // Create uri with env variables.
         String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
                 ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
@@ -60,12 +60,12 @@ public class TagController {
     }
 
     @PostMapping("/tags")
-    public ResponseEntity<String> create(@RequestBody Tag newTago) {
+    public ResponseEntity<String> create(@RequestBody Tag newTag) {
         String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
                 ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
                 ASTRA_DB_KEYSPACE + "/collections/tag";
 
-        String newTagJsonInString = new Gson().toJson(newTago);
+        String newTagJsonInString = new Gson().toJson(newTag);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -79,13 +79,13 @@ public class TagController {
     }
 
     @PutMapping("/tags/{id}")
-    public ResponseEntity<String> update(@PathVariable("id") String id, @RequestBody Tag updatedTago) {
+    public ResponseEntity<String> update(@PathVariable("id") String id, @RequestBody Tag updatedTag) {
 
         String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
                 ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
                 ASTRA_DB_KEYSPACE + "/collections/tag/" + id;
 
-        String updatedTagJsonInString = new Gson().toJson(updatedTago);
+        String updatedTagJsonInString = new Gson().toJson(updatedTag);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -94,7 +94,7 @@ public class TagController {
         HttpEntity<String> entity = new HttpEntity<String>(updatedTagJsonInString, headers);
         ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class);
 
-        //returns id of updatedTago (same id)
+        //returns id of updatedTag (same id)
         return res;
     }
 
