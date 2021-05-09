@@ -39,13 +39,13 @@ const ProductCard: React.SFC<CardProps> = (props) => {
               <img style={productImage} src={props.image} alt="Product preview"/>
             </div>
             <div className="is-flex w-100 is-justify-content-space-between px-4 pt-4 pb-2">
-              <div className="opacity-60 company has-text-theme-green-1 has-font-weight-bold">PATAGONIA</div>
+              <div className="opacity-60 company has-text-theme-green-1 has-font-weight-bold">{props.company}</div>
               <div className="is-flex">
                 <i className="fa fa-sm fa-plus mr-1 has-text-theme-green-1"/>
                 <i className="fa fa-sm fa-heart ml-1 has-text-danger"/>
               </div>
             </div>
-            <div className="is-size-7 has-font-weight-normal px-4 pb-5 has-text-left">Women's Better Sweater® Fleece Jacket</div>
+            <div className="is-size-7 has-font-weight-normal px-4 pb-5 has-text-left">{props.product}</div>
           </div>
         </div>
       </div>

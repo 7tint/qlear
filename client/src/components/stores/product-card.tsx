@@ -60,7 +60,7 @@ const ProductCard: React.SFC<CardProps> = (props) => {
               </div>
               <div className="mx-4">
                 <div className="is-flex is-justify-content-space-between mt-4 mb-3">
-                  <div className="is-size-6 has-text-weight-normal">{props.name}</div>
+                  <div className="is-size-6 has-text-weight-normal" style={{overflow: "hidden", whiteSpace: "nowrap", paddingRight: "0.5rem", textOverflow: "ellipsis"}}>{props.name}</div>
                   <div className="is-size-6 has-text-weight-bold">${props.price}</div>
                 </div>
                 <div className="is-flex is-justify-content-space-between mb-3">
