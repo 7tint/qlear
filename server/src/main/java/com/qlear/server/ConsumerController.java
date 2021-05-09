@@ -45,7 +45,7 @@ public class ConsumerController {
         // Create uri with env variables.
         String uri = "https://" + ASTRA_DB_ID + "-" + ASTRA_DB_REGION +
                 ".apps.astra.datastax.com/api/rest/v2/namespaces/" +
-                ASTRA_DB_KEYSPACE + "/collections/consumer/id";
+                ASTRA_DB_KEYSPACE + "/collections/consumer/" + id;
 
         // Call The DataStax Astra API
         RestTemplate restTemplate = new RestTemplate();
@@ -53,7 +53,7 @@ public class ConsumerController {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.set("X-Cassandra-Token", ASTRA_DB_APPLICATION_TOKEN);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
-        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class); // I needed a placeholder here ff
+        ResponseEntity<String> res = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
 
         return res;
     }
