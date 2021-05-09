@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import '../../assets/css/store-dashboard.scss';
 import Sidebar from './sidebar';
 import tagPreview from '../../assets/img/tag-preview.png';
@@ -14,7 +14,7 @@ interface Qleartag {
   unitPrice: number;
   salePrice: number;
   description: string;
-  colourways: string[];
+  colourways: string[][];
   sizeChart: number[][];
   media: string[];
   stories: string[][];
@@ -24,6 +24,7 @@ interface Qleartag {
 }
 
 interface ProductNewState {
+  redirect: string;
   colorsCount: number;
   qleartag: Qleartag;
 }
@@ -58,6 +59,7 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     super(props);
 
     this.state = {
+      redirect: "",
       colorsCount: 1,
       qleartag: {
         name: "",
@@ -65,7 +67,7 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
         unitPrice: 0,
         salePrice: 0,
         description: "",
-        colourways: [],
+        colourways: [[]],
         sizeChart: [[]],
         media: [],
         stories: [[]],
@@ -100,13 +102,19 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     e.preventDefault();
 
     // get colourways
-    const colourways = ["", "", ""];
-    const colorNameElement = document.getElementById('colorName') as HTMLInputElement;
-    const colorPickerElement = document.getElementById('colorPicker') as HTMLInputElement;
-    const colorImageUrlElement = document.getElementById('colorImageUrl') as HTMLInputElement;
-    colourways[0] = colorNameElement.value;
-    colourways[1] = colorPickerElement.value;
-    colourways[2] = colorImageUrlElement.value;
+    //const colourways = [[]];
+    const colourways : string[][] = [];
+    const colorNameElement = document.querySelectorAll('#colorName');
+    const colorPickerElement = document.querySelectorAll('#colorPicker');
+    const colorImageUrlElement = document.querySelectorAll('#colorImageUrl');
+
+    for (let i = 0; i < colorNameElement.length; i++) {
+      const cname = colorNameElement[i] as HTMLInputElement;
+      const cpick = colorPickerElement[i] as HTMLInputElement;
+      const cimage = colorImageUrlElement[i] as HTMLInputElement;
+      let colourway = [cname.value, cpick.value, cimage.value];
+      colourways.push(colourway);
+    }
 
     // get sizeChart
     const sizeChart = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
@@ -116,7 +124,6 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
       const td = tr.querySelectorAll('td');
       for (let col = 1; col < 6; col++) {
         if (td[col].querySelector('input')!.value) {
-          //console.log(td[col].querySelector('input')!.value);
           sizeChart[row-1][col-1] = Number(td[col].querySelector('input')!.value);
         }
       }
@@ -165,11 +172,9 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
       saves: 0
     }
 
-    console.log(postTag);
-
-    axios.post('https://api.qlear.info/tags', postTag)
+    axios.post('http://qlear-env.eba-2hmwrpmh.us-east-2.elasticbeanstalk.com/tags', postTag)
     .then(res => {
-      console.log(res);
+      this.setState({redirect: "/sell/dashboard"});
     });
   }
 
@@ -184,6 +189,9 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
   }
 
   render() {
+    if (this.state.redirect !== "") {
+      return <Redirect to={this.state.redirect} />
+    }
     const colourways = [];
     for (let i = 0; i < this.state.colorsCount; i++) {
       colourways.push(Colorway(this.deleteColor, i));
