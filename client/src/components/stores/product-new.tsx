@@ -202,17 +202,15 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
         <Sidebar/>
         <form className="main is-flex is-flex-direction-column is-align-items-start w-100 pt-6 px-custom-touch" onSubmit={this.handleSubmit}>
           <div className="is-flex w-100 is-flex-direction-row is-flex-direction-column-touch is-justify-content-space-between is-align-items-center">
-            <div className="is-flex is-flex-direction-row is-align-items-center my-3">
+            <div className="is-flex is-flex-direction-row is-align-items-center my-3 ml-5">
               <Link to="/sell/dashboard">
                 <i className="fa fa-lg mr-4 fa-caret-square-left has-text-grey-lighter"></i>
               </Link>
               <div className="title is-size-5 has-text-weight-normal mb-1">Add Product</div>
             </div>
             <div className="is-flex is-flex-direction-row is-align-items-center my-3">
-              <Link to="/sell/dashboard">
-                <button className="button custom-button-beige py-2 mx-2"><span className="mt-1 mx-3">DISCARD</span></button>
-              </Link>
-              <button className="button custom-button py-2 mx-2" type="submit"><span className="mt-1 mx-3">SAVE</span></button>
+              <button className="button custom-button-beige py-2 mx-2"><span className="mt-1 mx-3">DISCARD</span></button>
+              <button className="button custom-button py-2 mx-2"><span className="mt-1 mx-3">SAVE</span></button>
             </div>
           </div>
           <div className="mt-2 columns w-100 mx-0 is-flex-wrap-wrap">
@@ -413,8 +411,8 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
                 <button className="button custom-button py-2 mx-2 my-6" type="submit"><span className="mt-1 mx-3">CREATE QLEARTAG</span></button>
               </div>
             </div>
-            <div className="column is-full is-one-third-fullhd">
-              <div className="mx-2 has-background-theme-grey border-radius-8">
+            <div className="column is-full is-one-third-fullhd pt-3 mt-2">
+              <div className="mx-2 has-background-theme-grey border-radius-8 mt-6">
                 <div className="p-6 has-text-left">
                   <div className="subtitle">
                     TAG STATUS
