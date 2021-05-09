@@ -73,7 +73,7 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
           itemFeatures: obj.itemFeatures,
           saves: obj.saves,
           views: obj.views,
-          qr: `https://api.qrserver.com/v1/create-qr-code/?data=qlear.info/buy/dashboard/${key}&size=1000x1000`
+          qr: `https://api.qrserver.com/v1/create-qr-code/?data=qlear.info/#/buy/dashboard/${key}&size=1000x1000`
         }
         qleartagsNew.push(newTag);
         scanCount += newTag.views;
