@@ -1,4 +1,4 @@
-# qlear
+# Qlear
 
 
 ## Background
@@ -58,7 +58,6 @@ Using the above assets, we built out our **high-fidelity mock-ups** in Figma to 
 
  ![image of tag](https://cdn.discordapp.com/attachments/836015586613395516/840849415978614784/dfull.png)
 
-
 ##Engineering
 
 **Frontend**
@@ -72,7 +71,6 @@ Since the theme of the hackathon is "Spring into Action," we felt that it was th
 **System Architecture**
 
  ![image of tag](https://cdn.discordapp.com/attachments/836015586613395516/840999595201921044/unknown.png)
-
 
 ##Takeaways
 **Challenges we faced / What we learned**
