@@ -76,9 +76,13 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
 
     this.addColor = this.addColor.bind(this);
     this.deleteColor = this.deleteColor.bind(this);
-    
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+  }
+
+  componentDidMount() {
+    
   }
 
   addColor(e: React.MouseEvent) {
@@ -106,7 +110,7 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     colorways[0] = colorNameElement.value;
     colorways[1] = colorPickerElement.value;
     colorways[2] = colorImageUrlElement.value;
-    
+
     // get sizeChart
     const sizeChart = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
     const trs = document.querySelectorAll('tbody tr');
@@ -148,7 +152,7 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     itemFeatures[4] = featureTextElements![2].querySelector('textarea')!.value;
     itemFeatures[5] = featureTitleElements![2].querySelector('input')!.value;
     itemFeatures[6] = featureTextElements![3].querySelector('textarea')!.value;
-    
+
     const { qleartag } = this.state;
     qleartag['sizeChart'] = sizeChart;
     qleartag['colorways'] = colorways;
