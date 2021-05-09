@@ -81,10 +81,6 @@ class ProductNew extends React.Component<ProductNewProps, ProductNewState> {
     this.handleInput = this.handleInput.bind(this);
   }
 
-  componentDidMount() {
-    
-  }
-
   addColor(e: React.MouseEvent) {
     e.preventDefault();
     this.setState(prevState => ({
