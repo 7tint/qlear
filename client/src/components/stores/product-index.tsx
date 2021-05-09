@@ -136,7 +136,7 @@ class ProductIndex extends React.Component<ProductsProps, ProductsState> {
           <div className="mt-2 columns w-100 mx-0 is-mobile is-flex-wrap-wrap">
           {this.state.qleartags.map(function(tag, i) {
             return(
-              <ProductCard key={i} name={tag.name} image={tag.colourways[0][2]} price={tag.unitPrice.toString()} qr={tag.qr} scanned={tag.views} wishlisted={tag.saves} purchased={86}/>
+              <ProductCard id={tag.id} key={i} name={tag.name} image={tag.colourways[0][2]} price={tag.unitPrice.toString()} qr={tag.qr} scanned={tag.views} wishlisted={tag.saves} purchased={86}/>
             );
           })}
           </div>

@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CSS from 'csstype';
 
 interface CardProps {
+  id: string;
   name: string;
   image: string;
   price: string;
@@ -48,7 +50,7 @@ const ProductCard: React.SFC<CardProps> = (props) => {
   };
 
   return (
-    <div className="column mb-6 is-one-quarter-fullhd is-one-third-desktop is-half-tablet is-full-touch">
+    <Link to={`/buy/dashboard/${props.id}`} className="column mb-6 is-one-quarter-fullhd is-one-third-desktop is-half-tablet is-full-touch">
       <div className="card mx-2" style={customCard}>
         <div className="card-content p-0">
           <div className="content">
@@ -85,7 +87,7 @@ const ProductCard: React.SFC<CardProps> = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
