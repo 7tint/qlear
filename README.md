@@ -1,5 +1,9 @@
 # Qlear
+Tags For a Qlearer Future.
 
+### 2021 TO Hacks.
+#### :star2: Best Use of Datastax Astra
+&nbsp;
 
 ## Background
 **How can we effectively promote product transparency for conscious consumers?**
