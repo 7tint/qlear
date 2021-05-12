@@ -62,7 +62,7 @@ Using the above assets, we built out our **high-fidelity mock-ups** in Figma to 
 
  ![image of tag](https://cdn.discordapp.com/attachments/836015586613395516/840849415978614784/dfull.png)
 
-##Engineering
+## Engineering
 
 **Frontend**
 
@@ -76,7 +76,7 @@ Since the theme of the hackathon is "Spring into Action," we felt that it was th
 
  ![image of tag](https://cdn.discordapp.com/attachments/836015586613395516/840999595201921044/unknown.png)
 
-##Takeaways
+## Takeaways
 **Challenges we faced / What we learned**
 
 Building Qlear came with a lot of challenges and was learning experiences for us. Developing a complete web app with interfaces for both users and companies all while learning Typescript proved to be very time-consuming. A large reason we were able to finish in time was through leveraging new design techniques, streamlining the UI/UX process. We also encountered issues in outdated documentation as we tried to learn Spring Boot, but once we got it hooked up to DataStax’s Cassandra (which we also used for the first time), we thankfully found many reusable parts of code, shortening our process.
